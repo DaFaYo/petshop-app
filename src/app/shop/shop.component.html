@@ -1,0 +1,14 @@
+<h4>Pets for sale:</h4>
+<ul class="list-group">
+	<li *ngFor="let pet of pets"
+		class="list-group-item"
+		(click)="getPet(pet)">
+		{{ pet.id}} - {{ pet.displayName }} - {{ pet.price | currency:'EUR':'symbol':'1.2'}}
+	</li>
+</ul>
+<hr>
+<div *ngIf="currentPet">
+	<h2>Chosen pet: {{ currentPet.displayName }}</h2>
+    <button class="btn btn-primary"
+    (click)="addItem(currentPet)" >Add to Shopping Cart</button>    
+</div>
