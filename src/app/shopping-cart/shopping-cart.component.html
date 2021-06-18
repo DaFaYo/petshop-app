@@ -1,0 +1,23 @@
+<div *ngIf="shoppingCart.length > 0">
+	<h2>Your items:</h2>
+	<table class="table table-striped">
+	  <tr>
+		<th>Pet:</th>
+		<th>Amount</th>
+		<th>Price</th>
+	  </tr>
+	  <tbody>
+	  <tr *ngFor="let item of shoppingCart">
+		<td>{{ item.pet.displayName }}</td>
+		<td>{{ item.amount }}</td>
+		<td>{{ item.pet.price | currency:'EUR':'symbol':'1.2'}}</td>
+	  </tr>
+	  </tbody>
+	  <tr>
+		<td colspan="2">Total</td>
+		<td><strong>{{totalPrice | currency:'EUR':'symbol':'1.2'}}</strong></td>
+	  </tr>
+	</table>
+	<button class="btn btn-warning" (click)="cancel()">Empty Shopping Cart</button>
+	<button class="btn btn-success" (click)="confirm()">Confirm Order</button>
+  </div>
