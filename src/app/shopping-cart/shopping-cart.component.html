@@ -24,6 +24,7 @@
 	  </tr>
 	</table>
 	<button class="btn btn-success" (click)="confirm()">Confirm Order</button>
+	<button [hidden]="discountCouponUsed" class="btn btn-primary" (click)="discount()">Use 10% discount coupon</button>
 	<button class="btn btn-warning" (click)="removeCheckedItems()">Remove Checked Items</button>
 	<button class="btn btn-danger" (click)="cancel()">Empty Shopping Cart</button>
   </div>

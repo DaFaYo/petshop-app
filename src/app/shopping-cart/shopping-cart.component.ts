@@ -11,6 +11,7 @@ export class ShoppingCartComponent implements OnInit {
 
   shoppingCart: Item[] ;
   totalPrice: number = 0;
+  discountCouponUsed: boolean = false;
 
 
   constructor(private shopService: ShopService) {
@@ -20,11 +21,20 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
 
     this.shoppingCart = this.shopService.getItems();
+    this.calculateNewPrice();
 
+  }
+
+  calculateNewPrice() {
+    this.totalPrice = 0;
+    this.shoppingCart.forEach((item: Item) => 
+       this.totalPrice = this.totalPrice + (item.amount * item.pet.price)
+    );
   }
 
   removeCheckedItems() {
     this.shoppingCart = this.shopService.removeCheckedItems(this.shoppingCart);
+    this.calculateNewPrice();
   }
 
 
@@ -43,6 +53,14 @@ export class ShoppingCartComponent implements OnInit {
   
   isAllItemsChecked(): boolean {
     return this.shoppingCart.every((item: Item) => item.checked);
+  }
+
+  discount() {
+    if (!this.discountCouponUsed) {
+      this.totalPrice = this.totalPrice * 0.9;
+    }
+    this.discountCouponUsed = true;
+
   }
 
 }

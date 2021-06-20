@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Item } from '../shared/model/item.model';
 import { Pet } from '../shared/model/pet.model';
 import { ShopService } from '../shared/services/shop.service';
 
@@ -10,6 +11,7 @@ import { ShopService } from '../shared/services/shop.service';
 export class ShopComponent implements OnInit {
 
 	currentPet: Pet | undefined;
+  currentAmount: number = 1;
 	pets: Pet[];
   addingNewItem: boolean = false;
 
@@ -27,19 +29,24 @@ export class ShopComponent implements OnInit {
       () => console.log('Getting pets complete'));
   }
 
+  addOrSubtractPet(num: number) {
+   this.currentAmount = this.currentAmount + num;
+  }
 
   getPet(pet: Pet) {
-		this.currentPet = pet;
+    if (this.currentPet !== undefined && this.currentPet.id != pet.id) {
+      this.currentAmount = 1;
+    }
+    this.currentPet = pet;
 	}
 
-  addItem(pet: Pet, amount: number = 1) {
-    this.shopService.addItem(pet, amount);
+  addItem(pet: Pet) {
+    this.shopService.addItem(pet, this.currentAmount);
     this.addingNewItem = true;
     setTimeout(()=>{                         
       this.addingNewItem = false;
  }, 1000);
 
   }
-
 
 }

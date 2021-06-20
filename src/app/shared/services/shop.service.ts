@@ -27,7 +27,17 @@ export class ShopService {
 
   addItem(pet: Pet, amount: number) {
     console.log("Adding " + amount + " " + pet.displayName + "(s) to shopping cart");
-    this.shoppingCart.push(new Item(pet, amount));
+
+    let newItem = true;
+    this.shoppingCart.forEach((item: Item) => {
+      if (item.pet.id == pet.id) {
+        item.amount = item.amount + amount;
+        newItem = false;
+      }
+    });
+    if (newItem) {
+      this.shoppingCart.push(new Item(pet, amount));
+    }
   }
 
   getItems(): Item[] {

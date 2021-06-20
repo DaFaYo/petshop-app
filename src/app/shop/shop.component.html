@@ -1,17 +1,31 @@
 <h4>Pets for sale:</h4>
-<ul class="list-group">
-	<li *ngFor="let pet of pets"
-		class="list-group-item"
-		(click)="getPet(pet)">
-		{{ pet.id}} - {{ pet.displayName }} - {{ pet.price | currency:'EUR':'symbol':'1.2'}}
-	</li>
-</ul>
-<hr>
-<div *ngIf="currentPet">
-	<h2>Chosen pet: {{ currentPet.displayName }}</h2>
-    <button class="btn btn-primary"
-    (click)="addItem(currentPet)" >Add to Shopping Cart</button>
-	<div *ngIf="addingNewItem" class="alert alert-info" role="alert">
-		{{ currentPet.displayName }} added to the Shopping Cart!
-	  </div>   
+<div class="row">
+	<div class="col-md-6">
+		<ul class="list-group">
+			<li *ngFor="let pet of pets" class="list-group-item" (click)="getPet(pet)">
+				{{ pet.id}} - {{ pet.displayName }} - {{ pet.price | currency:'EUR':'symbol':'1.2'}}
+			</li>
+		</ul>
+		<hr>
+	</div>
+
+	<div class="col-md-6">
+		<div *ngIf="currentPet">
+			<h2 >Your chosen pet: {{ currentPet.displayName }}</h2>
+			<div class="btn-toolbar" role="toolbar">
+				<div class="btn-group me-2" role="group" aria-label="First group">
+					<button type="button" (click)="addOrSubtractPet(-1)" class="btn btn-sm btn-secondary">-1</button>
+				</div>
+				<div class="btn-group me-2" role="group" aria-label="Second group">
+					<button type="button" (click)="addOrSubtractPet(1)" class="btn btn-sm btn-secondary">+1</button>
+				</div>
+			</div>
+
+			<p> Amount: {{ currentAmount }} </p>
+			<button class="btn btn-primary" (click)="addItem(currentPet)">Add to Shopping Cart</button>
+			<div *ngIf="addingNewItem" class="alert alert-info" role="alert">
+				{{ currentAmount }}  {{ currentPet.displayName }}(s) added to the Shopping Cart!
+			</div>
+		</div>
+	</div>
 </div>
