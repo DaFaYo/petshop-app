@@ -11,6 +11,7 @@ export class ShopComponent implements OnInit {
 
 	currentPet: Pet | undefined;
 	pets: Pet[];
+  addingNewItem: boolean = false;
 
   constructor(private shopService: ShopService) { 
     this.pets = [];
@@ -32,8 +33,12 @@ export class ShopComponent implements OnInit {
 	}
 
   addItem(pet: Pet, amount: number = 1) {
-    //console.log("Adding " + amount + " " + pet.displayName +  "(s) to shopping cart");
     this.shopService.addItem(pet, amount);
+    this.addingNewItem = true;
+    setTimeout(()=>{                         
+      this.addingNewItem = false;
+ }, 1000);
+
   }
 
 

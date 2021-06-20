@@ -10,5 +10,8 @@
 <div *ngIf="currentPet">
 	<h2>Chosen pet: {{ currentPet.displayName }}</h2>
     <button class="btn btn-primary"
-    (click)="addItem(currentPet)" >Add to Shopping Cart</button>    
+    (click)="addItem(currentPet)" >Add to Shopping Cart</button>
+	<div *ngIf="addingNewItem" class="alert alert-info" role="alert">
+		{{ currentPet.displayName }} added to the Shopping Cart!
+	  </div>   
 </div>

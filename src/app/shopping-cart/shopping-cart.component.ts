@@ -21,7 +21,10 @@ export class ShoppingCartComponent implements OnInit {
 
     this.shoppingCart = this.shopService.getItems();
 
+  }
 
+  removeCheckedItems() {
+    this.shoppingCart = this.shopService.removeCheckedItems(this.shoppingCart);
   }
 
 
@@ -31,8 +34,15 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   confirm() {
-    alert('Your items will be send to you as soon as possible');
+    alert('Your items will be send to you as soon as possible!');
+  }
+
+  checkAllCheckBoxes(event: any) {
+    this.shoppingCart.forEach((item: Item) => item.checked = event.target.checked)
   }
   
+  isAllItemsChecked(): boolean {
+    return this.shoppingCart.every((item: Item) => item.checked);
+  }
 
 }
