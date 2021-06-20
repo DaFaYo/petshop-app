@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { CustomerEvent } from '../model/customer-event.model';
 import { Item } from '../model/item.model';
 import { Pet } from '../model/pet.model';
 
@@ -12,6 +13,7 @@ export class ShopService {
 
 
   private shoppingCart: Item[] = [];
+  private events: CustomerEvent[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -26,8 +28,7 @@ export class ShopService {
 
 
   addItem(pet: Pet, amount: number) {
-    console.log("Adding " + amount + " " + pet.displayName + "(s) to shopping cart");
-
+   
     let newItem = true;
     this.shoppingCart.forEach((item: Item) => {
       if (item.pet.id == pet.id) {
@@ -38,32 +39,43 @@ export class ShopService {
     if (newItem) {
       this.shoppingCart.push(new Item(pet, amount));
     }
+
+    this.newEvent("Adding " + amount + " " + pet.displayName + "(s) to shopping cart");
   }
 
   getItems(): Item[] {
-    this.shoppingCart.forEach((item: Item) => {
-      console.log(item.pet.displayName);
-    })
     return this.shoppingCart;
   }
 
   cancelOrders() {
     this.shoppingCart = [];
+    this.newEvent("Order cancelled!");
   }
 
   removeCheckedItems(items: Item[]): Item[] {
     this.shoppingCart = [];
     items.forEach((item: Item) => {
-      console.log("item: " + item.pet.displayName);
-      console.log("checked: " + item.checked);
-
+    
       if (item.checked === undefined || !item.checked) {
-        console.log("Pushing item: " + item.pet);
-        this.shoppingCart.push(item);
+
+         this.shoppingCart.push(item);
+      } else {
+        this.newEvent(item.amount + " " + item.pet.displayName + " removed." );
       }
     });
-
     return this.shoppingCart;
+  }
+
+  newEvent(eventType: string) {
+    this.events.push(new CustomerEvent(eventType, new Date()));
+
+  }
+
+  showAllEventsInLog() {
+    console.log("All Customer Events:");
+    console.log("********************");
+    this.events.forEach((ev => console.log(ev.toString())));
+    console.log("********************");
   }
 
 }

@@ -45,7 +45,7 @@ export class ShopComponent implements OnInit {
     this.addingNewItem = true;
     setTimeout(()=>{                         
       this.addingNewItem = false;
- }, 1000);
+ }, 3000);
 
   }
 

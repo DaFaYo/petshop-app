@@ -22,6 +22,7 @@ export class ShoppingCartComponent implements OnInit {
 
     this.shoppingCart = this.shopService.getItems();
     this.calculateNewPrice();
+    this.shopService.showAllEventsInLog()
 
   }
 
@@ -45,6 +46,7 @@ export class ShoppingCartComponent implements OnInit {
 
   confirm() {
     alert('Your items will be send to you as soon as possible!');
+    this.shopService.showAllEventsInLog();
   }
 
   checkAllCheckBoxes(event: any) {
