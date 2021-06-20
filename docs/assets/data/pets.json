@@ -13,5 +13,25 @@
         "id"        : 3,
         "displayName": "Dog",
         "price"  : 250
+    },
+    {
+        "id"        : 4,
+        "displayName": "guinea pig",
+        "price"  : 50
+    },
+    {
+        "id"        : 5,
+        "displayName": "Parrot",
+        "price"  : 1000
+    },
+    {
+        "id"        : 6,
+        "displayName": "Cockatoo",
+        "price"  : 350
+    },
+    {
+        "id"        : 7,
+        "displayName": "Corn Snake",
+        "price"  : 1250
     }
 ]
